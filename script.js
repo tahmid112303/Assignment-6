@@ -31,7 +31,7 @@ function display(posts){
                     </div>
 
                     <div class=" mt-4 mr-3">
-                        <i class="fa-solid fa-xmark cursor-pointer"></i>
+                        <i id="cross" class="fa-solid fa-xmark cursor-pointer"></i>
                     </div>
                 </div>
             </div>`
@@ -40,10 +40,14 @@ function display(posts){
 
             let total = document.getElementById("totalAmount");
             let current = parseInt(total.textContent);
-            let itemPrice = parseInt(bar.querySelector("#amount").textContent);
-            current+=itemPrice
-            total.textContent = current;         
+            let itemPrice = parseInt(bar.querySelector("#amount").textContent); 
+            total.textContent = current + itemPrice;       
             
+            const cross=bar.querySelector("#cross")
+            cross.addEventListener('click', ()=>{
+                bar.style.display="none"
+                total.textContent-=itemPrice
+            })
             
         })
     }
