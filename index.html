@@ -20,6 +20,12 @@
             background-color: #15803D;
             color: white;
         }
+
+        .category:active{
+            background-color: #15803D;
+            color: white;
+        }
+        
         #card-container{
             display: grid;
             grid-template-columns: repeat(3,1fr);
@@ -60,6 +66,8 @@
         
     </header>
 
+
+
     <main>
         <div class=" bg-[#CFF0DC] max-w-full h-[383px] flex max-sm:h-auto max-sm:flex-col ">
             <div class=" w-[450px] h-full">
@@ -78,6 +86,8 @@
         </div>
 
         <h1 class=" text-center mt-[100px] text-[32px] font-semibold max-sm:text-left max-sm:ml-2 max-sm:mt-[40px] ">Choose Your Trees</h1>
+
+        <div id="spinner" class="mt-2 mb-2 flex justify-center items-center hidden"><span class="loading loading-spinner loading-xl "></span></div>
 
         <div class=" mt-[40px] flex gap-[10px] max-sm:flex-col">
             <div class=" flex flex-col ml-[10px] h-[480px] w-[200px]">

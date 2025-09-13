@@ -14,9 +14,11 @@ function display(posts){
                         <div class=" w-auto p-2 h-[28px] bg-[#DCFCE7] flex justify-center items-center text-[#15803D] rounded-[40px]">${post.category}</div>
                         <div class="price">${post.price}</div>
                     </div>
-                    <div class=" w-full pl-4 pr-4"><button class="cardBtn cursor-pointer bg-[#15803D] text-white w-full h-[35px] rounded-[35px] border-none font-bold">Add to Cart</button></div>
+                    <div class=" w-full pl-4 pr-4"><button class="cardBtn btn cursor-pointer bg-[#15803D] text-white w-full h-[35px] rounded-[35px] border-none font-bold">Add to Cart</button></div>
                 </div>`
+                
                 container.appendChild(card)
+                manageSpinner(false)
 
                 const cardBtn = card.querySelector(".cardBtn");
                 cardBtn.addEventListener('click', function(){
@@ -39,9 +41,9 @@ function display(posts){
             cart.insertBefore(bar, document.querySelector("#totalBox"));
 
             let total = document.getElementById("totalAmount");
-            let current = parseInt(total.textContent);
+            let currentAmount = parseInt(total.textContent);
             let itemPrice = parseInt(bar.querySelector("#amount").textContent); 
-            total.textContent = current + itemPrice;       
+            total.textContent = currentAmount + itemPrice;       
             
             const cross=bar.querySelector("#cross")
             cross.addEventListener('click', ()=>{
@@ -51,6 +53,17 @@ function display(posts){
             
         })
     }
+    
+}
+
+function manageSpinner(status){
+    if(status==true){
+        document.getElementById("spinner").classList.remove("hidden")
+        document.getElementById("card-container").classList.add("hidden")
+    }else{
+        document.getElementById("card-container").classList.remove("hidden")
+        document.getElementById("spinner").classList.add("hidden")
+    }
 }
 
 
@@ -58,6 +71,7 @@ function display(posts){
 for(const btn of categoryButtons){
     
     btn.addEventListener('click', ()=>{
+        manageSpinner(true)
         if(btn.textContent==="All Trees"){
             const url="https://openapi.programming-hero.com/api/plants"
             fetch(url).then(res=>res.json())
@@ -69,13 +83,16 @@ for(const btn of categoryButtons){
             const clickedCategory=btn.textContent
 
             fetch(url).then(res=>res.json())
-            .then(data=>{
-                const filteredData=data.plants.filter(post=>post.category.toLowerCase()===clickedCategory.toLowerCase())
+            .then(json=>{
+                const filteredData=json.plants.filter(post=>post.category.toLowerCase()===clickedCategory.toLowerCase());
                 display(filteredData)
             })
         }
     })
 }
+
+
+
 
 
 
